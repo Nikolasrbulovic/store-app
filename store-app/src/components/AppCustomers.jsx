@@ -1,29 +1,40 @@
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+import AddCustomer from "./AddCustomer";
+import { Link } from "react-router-dom";
 const AppCustomers = () => {
   const [appCustomers, setAppCustomers] = useState([
-    "Marko",
-    "Nikola",
-    "Milos",
-    "Milan",
+    { name: "nikola" },
+    { name: "nikola" },
+    { name: "nikola" },
+    { name: "nikola" },
   ]);
-  const deleteCustomerHandler = (name) => {
-    setAppCustomers((prev) => prev.filter((customer) => customer !== name));
+  const addCustomer = (customer) => {
+    setAppCustomers((prevState) => [...prevState, { name: customer }]);
+  };
+  const deleteCustomerHandler = (key) => {
+    setAppCustomers((prev) => prev.filter((customer, id) => id !== key));
   };
   return (
-    <ListGroup>
-      {appCustomers.map((customer, key) => {
-        return (
-          <ListGroup.Item key={key}>
-            {customer}
-            <Button onClick={() => deleteCustomerHandler(customer)}>
-              Delete Customer
-            </Button>
-          </ListGroup.Item>
-        );
-      })}
-    </ListGroup>
+    <div>
+      <ListGroup>
+        {appCustomers.map((customer, key) => {
+          return (
+            <ListGroup.Item key={key}>
+              {customer.name}
+              <Button onClick={() => deleteCustomerHandler(key)}>
+                Delete Customer
+              </Button>
+              <Link to={`${key}`}>
+                <Button>Latest Purchases</Button>
+              </Link>
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
+      <AddCustomer addCustomer={addCustomer}></AddCustomer>
+    </div>
   );
 };
 export default AppCustomers;
