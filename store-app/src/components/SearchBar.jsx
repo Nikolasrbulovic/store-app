@@ -7,7 +7,7 @@ export default function SearchBar({searchProducts}) {
   return (
     <Container className="mt-5">
       <Row>
-        <Col sm={10}>
+        <Col sm={4}>
           <Form className="d-flex">
             <Form.Control
                 onChange={searchBarHandler}
